@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ticket Management · SkyDesk Airplane Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="bi bi-airplane-fill"></i></div>
+      <div class="brand-text">SkyDesk<small>Airplane Ops</small></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a href="index.html" class="nav-link"><i class="bi bi-grid-1x2-fill"></i> Home Dashboard</a>
+
+      <div class="nav-section-label">Operations</div>
+      <a href="tickets.html" class="nav-link active"><i class="bi bi-ticket-perforated-fill"></i> Ticket Management</a>
+      <a href="departures.html" class="nav-link"><i class="bi bi-airplane-engines-fill"></i> Departures</a>
+      <a href="arrivals.html" class="nav-link"><i class="bi bi-airplane-fill" style="transform:rotate(90deg);display:inline-block;"></i> Arrivals</a>
+
+      <div class="nav-section-label">System</div>
+      <a href="#" class="nav-link"><i class="bi bi-gear-fill"></i> Settings</a>
+      <a href="#" class="nav-link"><i class="bi bi-box-arrow-right"></i> Sign Out</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="avatar">RA</div>
+      <div>
+        <div class="staff-name">Rameen A.</div>
+        <div class="staff-role">Operations Staff</div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- Main -->
+  <div class="main-content">
+    <header class="topbar">
+      <div class="d-flex align-items-center gap-3">
+        <button class="icon-btn sidebar-toggle-btn" id="sidebarToggle"><i class="bi bi-list fs-5"></i></button>
+        <div>
+          <div class="page-eyebrow">Operations</div>
+          <h1 class="page-title">Ticket Management</h1>
+        </div>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <div class="topbar-search">
+          <i class="bi bi-search text-secondary"></i>
+          <input type="text" placeholder="Search flights, tickets...">
+        </div>
+        <button class="icon-btn"><i class="bi bi-bell-fill"></i><span class="dot"></span></button>
+        <span class="d-none d-md-inline text-secondary small fw-medium" id="liveClock"></span>
+      </div>
+    </header>
+
+    <main class="content-area">
+
+      <!-- Summary cards -->
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-sky"><i class="bi bi-ticket-perforated-fill"></i></div>
+            <div class="stat-value">3,542</div>
+            <div class="stat-label">Total Tickets</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-mint"><i class="bi bi-check-circle-fill"></i></div>
+            <div class="stat-value">3,204</div>
+            <div class="stat-label">Confirmed</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-amber"><i class="bi bi-hourglass-split"></i></div>
+            <div class="stat-value">241</div>
+            <div class="stat-label">Pending Payment</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat-card">
+            <div class="stat-icon bg-navy"><i class="bi bi-x-circle-fill"></i></div>
+            <div class="stat-value">97</div>
+            <div class="stat-label">Cancelled</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <!-- Ticket table -->
+        <div class="col-lg-8">
+          <div class="panel">
+            <div class="panel-header flex-wrap gap-2">
+              <h2><i class="bi bi-list-ul text-sky me-1"></i> All Bookings</h2>
+              <div class="d-flex gap-2">
+                <input id="tableSearch" type="text" class="form-control form-control-clean" placeholder="Filter bookings..." style="width:190px;">
+                <button class="btn btn-brand btn-sm" data-bs-toggle="modal" data-bs-target="#newTicketModal"><i class="bi bi-plus-lg me-1"></i>New</button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-clean mb-0" id="dataTable">
+                <thead>
+                  <tr><th>Ticket ID</th><th>Passenger</th><th>Flight</th><th>Class</th><th>Seat</th><th>Status</th><th></th></tr>
+                </thead>
+                <tbody>
+                  <tr><td class="flight-code">TK-10234</td><td>Ayesha Khan</td><td>SK-204</td><td>Economy</td><td>14C</td><td><span class="badge-status badge-confirmed">Confirmed</span></td><td><button class="icon-btn" style="width:32px;height:32px;"><i class="bi bi-three-dots"></i></button></td></tr>
+                  <tr><td class="flight-code">TK-10235</td><td>Bilal Ahmed</td><td>SK-118</td><td>Business</td><td>2A</td><td><span class="badge-status badge-confirmed">Confirmed</span></td><td><button class="icon-btn" style="width:32px;height:32px;"><i class="bi bi-three-dots"></i></button></td></tr>
+                  <tr><td class="flight-code">TK-10236</td><td>Sara Iqbal</td><td>SK-330</td><td>Economy</td><td>21F</td><td><span class="badge-status badge-pending">Pending</span></td><td><button class="icon-btn" style="width:32px;height:32px;"><i class="bi bi-three-dots"></i></button></td></tr>
+                  <tr><td class="flight-code">TK-10237</td><td>Hamza Tariq</td><td>SK-456</td><td>Economy</td><td>09B</td><td><span class="badge-status badge-confirmed">Confirmed</span></td><td><button class="icon-btn" style="width:32px;height:32px;"><i class="bi bi-three-dots"></i></button></td></tr>
+                  <tr><td class="flight-code">TK-10238</td><td>Mahnoor Farooq</td><td>SK-092</td><td>Economy</td><td>17D</td><td><span class="badge-status badge-cancelled">Cancelled</span></td><td><button class="icon-btn" style="width:32px;height:32px;"><i class="bi bi-three-dots"></i></button></td></tr>
+                  <tr><td class="flight-code">TK-10239</td><td>Usman Raza</td><td>SK-771</td><td>Business</td><td>1C</td><td><span class="badge-status badge-confirmed">Confirmed</span></td><td><button class="icon-btn" style="width:32px;height:32px;"><i class="bi bi-three-dots"></i></button></td></tr>
+                  <tr><td class="flight-code">TK-10240</td><td>Zainab Malik</td><td>SK-509</td><td>Economy</td><td>11A</td><td><span class="badge-status badge-pending">Pending</span></td><td><button class="icon-btn" style="width:32px;height:32px;"><i class="bi bi-three-dots"></i></button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick booking form -->
+        <div class="col-lg-4">
+          <div class="panel">
+            <div class="panel-header"><h2><i class="bi bi-pencil-square text-sky me-1"></i> Quick Booking</h2></div>
+            <div class="panel-body">
+              <form>
+                <div class="mb-3">
+                  <label class="form-label small fw-medium">Passenger Name</label>
+                  <input type="text" class="form-control form-control-clean" placeholder="e.g. Ayesha Khan">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label small fw-medium">Flight Number</label>
+                  <input type="text" class="form-control form-control-clean" placeholder="e.g. SK-204">
+                </div>
+                <div class="row g-2 mb-3">
+                  <div class="col-6">
+                    <label class="form-label small fw-medium">Class</label>
+                    <select class="form-select form-control-clean">
+                      <option>Economy</option>
+                      <option>Business</option>
+                      <option>First</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label small fw-medium">Seat No.</label>
+                    <input type="text" class="form-control form-control-clean" placeholder="14C">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-brand w-100">Confirm Booking</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- New Ticket Modal -->
+    <div class="modal fade" id="newTicketModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content" style="border-radius:14px;border:none;">
+          <div class="modal-header">
+            <h5 class="modal-title">New Ticket Booking</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label small fw-medium">Passenger Name</label>
+              <input type="text" class="form-control form-control-clean">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-medium">Flight Number</label>
+              <input type="text" class="form-control form-control-clean">
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button class="btn btn-outline-brand" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-brand">Save Ticket</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <div class="brand-icon" style="width:32px;height:32px;font-size:15px;"><i class="bi bi-airplane-fill"></i></div>
+            <span class="fw-bold text-white">SkyDesk</span>
+          </div>
+          <p class="small mb-0">A unified console for managing flights, tickets, departures and arrivals across the network.</p>
+        </div>
+        <div class="col-6 col-md-2">
+          <h6>Navigate</h6>
+          <div class="d-flex flex-column gap-2">
+            <a href="index.html">Dashboard</a>
+            <a href="tickets.html">Tickets</a>
+            <a href="departures.html">Departures</a>
+            <a href="arrivals.html">Arrivals</a>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <h6>Support</h6>
+          <div class="d-flex flex-column gap-2">
+            <a href="#">Help Center</a>
+            <a href="#">Contact Ops Desk</a>
+            <a href="#">Report an Issue</a>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h6>Contact</h6>
+          <p class="small mb-1"><i class="bi bi-geo-alt me-1"></i> Terminal 1, Airport Road</p>
+          <p class="small mb-1"><i class="bi bi-envelope me-1"></i> ops@skydesk.example</p>
+          <p class="small"><i class="bi bi-telephone me-1"></i> +92 300 0000000</p>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 SkyDesk Airplane Management System. Academic project.</span>
+        <span>Submission date: 15 July 2026</span>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
